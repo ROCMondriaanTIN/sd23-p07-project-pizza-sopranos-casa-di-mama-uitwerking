@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center">{{ product.name }}</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="span4"></div>
+            <div class="span4">
+                <div class="card">
+                    <img src="{{ asset('images/' ~ product.image) }}"  alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <h3>€{{ product.price|number_format(2, ',', '.') }}</h3>
+                    </div>
+                    {% if app.user %}
+                        <a href="{{ path('app_add_shopping_cart', {'id': product.id}) }}" class="btn btn-primary">Voeg toe aan winkelwagen</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="span4"></div>
+        </div>
+    </div>
+{% endblock %}

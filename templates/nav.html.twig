@@ -1,0 +1,43 @@
+
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+        <div class="container" style="width: auto;">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="{{ path('app_home') }}">Casa di mama</a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li class="{{ app.request.get('_route') == 'app_home' ? 'active' : '' }}"><a href="{{ path('app_home') }}">Home</a></li>
+                    <li class="{{ app.request.get('_route') == 'app_product' ? 'active' : '' }}"><a href="{{ path('app_product') }}">Producten</a></li>
+                    {% if app.user %}
+                        <li class="{{ app.request.get('_route') == 'app_purchase' ? 'active' : '' }}"><a href="{{ path('app_purchase') }}">Bestellingen</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="nav pull-right">
+                    {% if not app.user %}
+                        <li class="{{ app.request.get('_route') == 'app_register' ? 'active' : '' }}"><a href="{{ path('app_register') }}">Registreer</a></li>
+                        <li class="{{ app.request.get('_route') == 'app_login' ? 'active' : '' }}"><a href="{{ path('app_login') }}">Login</a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_logout') }}">Logout</a></li>
+
+                    <li class="divider-vertical"></li>
+
+                    <li class="{{ app.request.get('_route') == 'app_shopping_cart' ? 'active' : '' }}">
+                        <a href="{{ path('app_shopping_cart') }}"><i class="bi bi-cart"></i>
+                            {% if shoppingCart.getNumberOfProducts(app.request) > 0 %}
+                            <span class="badge badge-important text-white">{{ shoppingCart.getNumberOfProducts(app.request) }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">{{ app.user.firstName }} {{ app.user.lastName }}</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div>
+    </div><!-- /navbar-inner -->
+</div><!-- /navbar -->

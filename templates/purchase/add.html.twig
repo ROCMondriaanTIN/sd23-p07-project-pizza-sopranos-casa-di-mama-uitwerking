@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bestel je pizza{% endblock %}
+
+{% block body %}
+    <h1>Uw bestelling</h1>
+    <div class="row">
+        <div class="span6">
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Afbeelding</th>
+            <th>Aantal</th>
+            <th>Prijs per stuk</th>
+            <th>Totale Prijs</th>
+        </tr>
+        </thead>
+        <tbody>
+        {%  for product in products %}
+            <tr>
+                <td>{{ product.product.name }}</td>
+                <td><img src="{{ asset('images/' ~ product.product.image) }}" width="200" class="img-fluid" alt="{{ product.product.image }}"></td>
+                <td>{{ product.quantity }}</td>
+                <td>€ {{ product.product.price|number_format(2, ',', '.') }}</td>
+                <td>€ {{ (product.product.price * product.quantity)|number_format(2, ',', '.') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            <h4>Totaal € {{ totalPrice|number_format(2, ',', '.') }}</h4>
+        </div>
+        <div class="span6">
+
+    <h3>Vul uw gegevens in</h3>
+    {{ form(form) }}
+        </div>
+    </div>
+
+{% endblock %}

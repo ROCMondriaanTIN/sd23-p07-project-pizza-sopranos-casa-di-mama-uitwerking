@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bestelling details{% endblock %}
+
+{% block body %}
+    <h1>Bestelling</h1>
+
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Straat + huisnummer</th>
+            <th>Plaats</th>
+            <th>Postcode</th>
+            <th>Datum</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ purchase.user.email }}</td>
+                <td>{{ purchase.street }}</td>
+                <td>{{ purchase.city }}</td>
+                <td>{{ purchase.postalCode}}</td>
+                <td>{{ purchase.date|date("d-m-Y") }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h1>Bestelling details</h1>
+
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Afbeelding</th>
+            <th>Aantal</th>
+            <th>Prijs per stuk</th>
+            <th>Totale Prijs</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set totalPrice = 0 %}
+        {%  for purchaseProduct in purchase.purchaseProducts %}
+            {% set totalPrice = totalPrice + (purchaseProduct.product.price * purchaseProduct.quantity) %}
+            <tr>
+                <td>{{ purchaseProduct.product.name }}</td>
+                <td><img src="{{ asset('images/' ~ purchaseProduct.product.image) }}" width="200" class="img-fluid" alt="{{ purchaseProduct.product.image }}"></td>
+                <td>{{ purchaseProduct.quantity }}</td>
+                <td>€ {{ purchaseProduct.product.price|number_format(2, ',', '.') }}</td>
+                <td>€ {{ (purchaseProduct.product.price * purchaseProduct.quantity)|number_format(2, ',', '.') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h4>Totaalprijs € {{ totalPrice|number_format(2, ',', '.') }}</h4>
+    <a href="{{ path('app_purchase') }}"><button type="button" class="btn btn-primary">Ga terug</button></a>
+
+
+{% endblock %}

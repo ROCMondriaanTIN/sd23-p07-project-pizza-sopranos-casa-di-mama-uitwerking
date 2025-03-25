@@ -1,3 +1,32 @@
 body {
     background-color: skyblue;
 }
+
+.card{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.card-title{
+    text-align: center;
+    color: white;
+}
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+}
+
+.card > img{
+    height: 290px;
+    object-fit: cover;
+}
+
+.card-body > a{
+    margin: auto;
+    width: 100%;
+}
