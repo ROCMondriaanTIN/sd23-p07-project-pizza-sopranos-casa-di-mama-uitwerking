@@ -18,10 +18,13 @@
                             <h5 class="card-title">{{ product.name }}</h5>
                         </div>
                         <a href="{{ path('app_product_detail', {'id': product.id}) }}" class="btn btn-primary">Details</a>
+                        <a href="{{ path('app_product_update', {'id': product.id}) }}" class="btn btn-warning">Update</a>
+                        <a href="{{ path('app_product_delete', {'id': product.id}) }}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
 
             {% endfor %}
         </div>
     </div>
+    <a class="btn btn-primary" href="{{ path('app_product_add') }}">Voeg pizza toe</a>
 {% endblock %}
